@@ -16,9 +16,14 @@ class RoomsController < ApplicationController
   end
 
   def cleaning_schedule
+    render json: { status: :ok, guests: params[:guests], bags: params[:bags], rooms: find_dirty_rooms}
   end
 
   private
+
+    def find_dirty_rooms
+      @list = Room.left_outer_joins(:storages).select("rooms.*").select("storages.max_storage, storages.storage").where('status=2')
+    end
 
     def all_rooms_with_status
       @list = Room.left_outer_joins(:storages).select("rooms.*").select("storages.max_storage, storages.storage")
