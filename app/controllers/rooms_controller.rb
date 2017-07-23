@@ -16,10 +16,20 @@ class RoomsController < ApplicationController
   end
 
   def cleaning_schedule
-    render json: { status: :ok, guests: params[:guests], bags: params[:bags], rooms: find_dirty_rooms}
+    render json: { status: :ok, time_to_clean: calculate_time_to_clean(1)}
   end
 
   private
+
+    def calculate_time_to_clean(cleaners)
+      #cleaners is the number of indivituals doing the cleaning
+      #1 hour per room plus 30 minutes per person in the room
+      total_time_to_clean = 0
+      find_dirty_rooms.each do |room|
+        total_time_to_clean += 60 + (room.guests.to_i * 30) 
+      end
+      total_time_to_clean / cleaners
+    end
 
     def find_dirty_rooms
       @list = Room.left_outer_joins(:storages).select("rooms.*").select("storages.max_storage, storages.storage").where('status=2')
