@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
   end
 
   def list_available
+    render json: { status: :ok, guests: params[:guests], bags: params[:bags], rooms: find_available_rooms(room_params)}
   end
 
   def cleaning_schedule
