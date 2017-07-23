@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723180847) do
+ActiveRecord::Schema.define(version: 20170723181509) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer "guests"
     t.integer "max_guests"
     t.integer "status"
     t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "storages", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "max_storage"
+    t.integer "storage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
