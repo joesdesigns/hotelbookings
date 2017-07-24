@@ -1,24 +1,30 @@
-# README
+# Hotel room scheduling prototype
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##Summary:
 
-Things you may want to cover:
+This is a prototype application to define a process for scheduling rooms at a fictional hotel.  The requirement for this project are that it exposes everal end points via a RESTful API.  Ruby on Rails is the best tool for that job.  
 
-* Ruby version
+##Setup:
 
-* System dependencies
+Install Ruby 2.4.0
+Install Rails 5.1.2
 
-* Configuration
+I used Homebrew on a Mac OS X Sierra here is a url to a install process https://gorails.com/setup/osx/10.12-sierra
 
-* Database creation
+After installing Ruby on Rails, populate the database then bundle the app and it should be good to go.
 
-* Database initialization
+#Usage:
 
-* How to run the test suite
+I used Postman for API testing.
 
-* Services (job queues, cache servers, search engines, etc.)
+Endpoints:
 
-* Deployment instructions
+*localhost:3000/rooms/list - to get a list of all rooms and their current status.
 
-* ...
+*localhost:3000/rooms/list_available - to get a list of rooms available to rent.
+
+*localhost:3000/rooms/cleaning_schedule - will give an estimated time in minutes to clean all the dirty rooms.
+
+*localhost:3000/rooms/book?guests=1 - to book a guest with no bags.
+
+*localhost:3000/rooms/book?guests=1&bags=1 - to book a guest with 1 bag.
