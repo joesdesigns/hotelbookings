@@ -179,3 +179,14 @@ I would probably create a configuration Object to store the configuration on a h
 I create basic unit tests for each of the 4 main end points Book, List, List_Available and Cleaning Schedule.  I would absolutely expand these test to include use cases and edge cases.
 
 I would want to use a Factory instead of creating actual API calls.
+
+# Timeline
+
+I spent about 20 minutes thinking about various implementation options, I prefer to spend time planning up front rather than wish I had later.
+
+Initial implementation I tried to keep it to 2 hours and was pretty close.
+
+Final implementation which includes testing, cleanup and documnetation took about 45 minutes.
+
+Total time to get it to version 1 just over 3 hours.
+
