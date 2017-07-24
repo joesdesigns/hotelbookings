@@ -2,7 +2,7 @@
 
 ## Summary:
 
-This is a prototype application to define a process for scheduling rooms at a fictional hotel.  The requirement for this project are that it exposes everal end points via a RESTful API.  Ruby on Rails is the best tool for that job.  
+This is a prototype application to define a process for scheduling rooms at a fictional hotel.  The requirement for this project are that it exposes several end points via a RESTful API.  Ruby on Rails is the best tool for that job.  
 
 ## Setup:
 
@@ -135,3 +135,47 @@ I used Postman for API testing.
     "cost": "1"
 }
 ```
+
+# How it works
+
+A guest requests a room.
+
+The desk clerk runs the book endpoint and specifies the number of guests and bags in the party.  The API finds an available room and returns the room number and returns back the requested attributes.  If no rooms are available a message is returned.
+
+The desk clerk can also find out the status of all rooms or just the available rooms.
+
+Additional the cleaning_schedule endpoint will indicate how long it will take the current cleaning staff to clean all the dirty rooms.
+
+# Not in this version
+
+The room number is the primary key for simplicity, I would prefer a more real world number such as 203 or 23B.
+
+The cost calculations are not yet implemented.
+
+The status of a room is just a number 0 = available, 1 = occupied, 2 = dirty it would be nice to tie those together so a human readable value is presented.
+
+Currently only guests with bags are placed in rooms with storage and guests without are placed in rooms without storage, it is possible to take advantages of empty beds.
+
+We don't have a way for the cleaning folks to reset a room to clean after they are finished.
+
+
+# Extendability
+
+I designed this for expansion, currently we have the Rooms controller that handles all the rooms.  Adding additional rooms at the same hotel is pretty easy and clearly within the capabilities of this app.  
+
+The next logical progression would be if there is more than one building either as part of the same hotel or a different hotel.  Simply creating a Hotel object with a one to many relationship to rooms solves that problem.
+
+Additionally Hotels could be grouped into a chain, region or country just as easily.
+
+Once the Rooms controller is expanded to more than one business entity we have the possibility that things like pricing, staff calculations and rules for assignment of rooms could change for different hotels.  Even change seasonally within the same organizaion.  I have abstracted the room handling functions such as find_available_rooms into shared private methods.  At this time I kept those scoped to the Room class, I would probably leave them there but make them protected so that if we needed to use or replace them with child implementations we easily could.
+
+I also chose to put the calculations at the application level, these would probably be the most diverse in an expanded environment.  On a hotel by hotel basis they could either use the provided calculations or extend those calculations and replace the appropriate logic.
+
+For the cleaning staff count and some of the other business logic numbers are abstracted to constants that can either be updated or replaced as needed.
+I would probably create a configuration Object to store the configuration on a hotel by hotel basis instead of keeping them status.
+
+# Testing
+
+I create basic unit tests for each of the 4 main end points Book, List, List_Available and Cleaning Schedule.  I would absolutely expand these test to include use cases and edge cases.
+
+I would want to use a Factory instead of creating actual API calls.
