@@ -17,7 +17,7 @@ After installing Ruby on Rails, populate the database then bundle the app and it
 
 I used Postman for API testing.
 
-###Endpoints:
+### Endpoints:
 
 * localhost:3000/rooms/list - to get a list of all rooms and their current status.
 ```json
