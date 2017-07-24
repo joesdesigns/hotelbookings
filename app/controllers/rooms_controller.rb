@@ -15,11 +15,11 @@ class RoomsController < ApplicationController
     #TODO - Status shows up as a number we should create a enum or status list to use
     #       status 0 = available, 1 = occupied, 2 = needs cleaning
     #TODO - The storage for rooms with no storage shows up null we shold make it pretty
-    render json: {status: :ok, guests: params[:guests], bags: params[:bags], rooms: all_rooms_with_status}
+    render json: {status: :ok, rooms: all_rooms_with_status}
   end
 
   def list_available
-    render json: {status: :ok, guests: params[:guests], bags: params[:bags], rooms: find_available_rooms(room_params)}
+    render json: {status: :ok, rooms: find_available_rooms(room_params)}
   end
 
   def cleaning_schedule
@@ -62,7 +62,7 @@ class RoomsController < ApplicationController
       @guests_room.save
       #update the storage record if there are bags
       if guest_has_bags?(room_params)
-        @storage = Storages.find_by_room_id(room_id)
+        @storage = Storage.find_by_room_id(room_id)
         @storage.storage += params[:bags].to_i
         @storage.save
       end
